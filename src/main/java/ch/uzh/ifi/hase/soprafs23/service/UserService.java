@@ -43,7 +43,7 @@ public class UserService {
     newUser.setToken(UUID.randomUUID().toString());
     newUser.setStatus(UserStatus.OFFLINE);
     checkIfUserExists(newUser);
-    // saves the given entity but data is only persisted in the database once
+    // saves the given entity repo.savebut data is only persisted in the database once
     // flush() is called
     newUser = userRepository.save(newUser);
     userRepository.flush();
