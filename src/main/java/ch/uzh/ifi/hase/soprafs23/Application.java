@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//import ch.uzh.ifi.hase.soprafs23.tmp.GetSecret;
+import ch.uzh.ifi.hase.soprafs23.GetSecret;
 
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
@@ -27,14 +27,14 @@ public class Application {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld(){
-      String secret="init";
-      try {
-          secret = System.getenv("TestAPIKey");
-          System.out.println(secret);
-      }
-      catch(Exception e) {
-          secret = "NO_ENV_VARIABLE";
-      }
+      String secret="initialize";
+//      try {
+//          secret = System.getenv("TestAPIKey");
+//          System.out.println(secret);
+//      }
+//      catch(Exception e) {
+//          secret = "NO_ENV_VARIABLE";
+//      }
 //      try {
 //          File myObj = new File("~/key.txt");
 //          Scanner myReader = new Scanner(myObj);
@@ -45,7 +45,17 @@ public class Application {
 //          secret = "An error occurred.";
 //          e.printStackTrace();
 //      }
-      System.out.println(secret);
+//      System.out.println(secret);
+      GetSecret test = new GetSecret();
+      try {
+          test.getSecret();
+          secret="getSecret() success";
+      }
+      catch (Exception e) {
+          secret="getSecret() error";
+          e.printStackTrace();
+      }
+
       return "The application is running.\nAPI KEY : " + secret;
   }
 
