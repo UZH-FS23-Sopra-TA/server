@@ -27,7 +27,7 @@ public class Application {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld(){
-      String secret;
+      String secret="init";
       try {
           secret = System.getenv("TestAPIKey");
           System.out.println(secret);
