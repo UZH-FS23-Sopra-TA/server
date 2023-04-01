@@ -26,11 +26,14 @@ public class Application {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld(){
-      String secret = "TMP123";
-//      GetSecret.getSecret();
-//      secret = System.getenv("TEST");
-//      System.out.println(secret);
-
+      String secret;
+      try {
+          secret = System.getenv("APIKEY");
+          System.out.println(secret);
+      }
+      catch(Exception e) {
+          secret = "NO_ENV_VARIABLE";
+      }
       return "The application is running.\nAPI KEY : " + secret;
   }
 
