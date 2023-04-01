@@ -11,8 +11,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //import ch.uzh.ifi.hase.soprafs23.tmp.GetSecret;
 
-import java.io.IOException;
-
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
 
 @RestController
 @SpringBootApplication
@@ -28,12 +29,23 @@ public class Application {
   public String helloWorld(){
       String secret;
       try {
-          secret = System.getenv("APIKEY");
+          secret = System.getenv("TestAPIKey");
           System.out.println(secret);
       }
       catch(Exception e) {
           secret = "NO_ENV_VARIABLE";
       }
+//      try {
+//          File myObj = new File("~/key.txt");
+//          Scanner myReader = new Scanner(myObj);
+//          String data = myReader.nextLine();
+//          secret = data;
+//          myReader.close();
+//      } catch (FileNotFoundException e) {
+//          secret = "An error occurred.";
+//          e.printStackTrace();
+//      }
+      System.out.println(secret);
       return "The application is running.\nAPI KEY : " + secret;
   }
 
