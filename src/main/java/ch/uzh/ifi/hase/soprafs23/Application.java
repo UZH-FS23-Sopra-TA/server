@@ -8,6 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.google.cloud.secretmanager.v1.Secret;
+import com.google.cloud.secretmanager.v1.SecretManagerServiceClient;
+import com.google.cloud.secretmanager.v1.SecretName;
+import java.io.IOException;
+
 
 @RestController
 @SpringBootApplication
@@ -20,8 +25,12 @@ public class Application {
   @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public String helloWorld() {
-    return "The application is running.\nAPI KEY : ";
+  public String helloWorld() throws IOException{
+      String projectId = "sopra-fs23-ta-m1-server"; // projects/393893293106/secrets/TestAPIKey
+      String secretId = "projects/393893293106/secrets/TestAPIKey\n";
+      String secret = getSecret(projectId, secretId);
+
+      return "The application is running.\nAPI KEY : " + secret;
   }
 
   @Bean
@@ -33,4 +42,32 @@ public class Application {
       }
     };
   }
+
+    // Get an existing secret.
+    public static String getSecret(String projectId, String secretId) throws IOException {
+        // Initialize client that will be used to send requests. This client only needs to be created
+        // once, and can be reused for multiple requests. After completing all of your requests, call
+        // the "close" method on the client to safely clean up any remaining background resources.
+        try (SecretManagerServiceClient client = SecretManagerServiceClient.create()) {
+            // Build the name.
+            SecretName secretName = SecretName.of(projectId, secretId);
+
+            // Create the secret.
+            Secret secret = client.getSecret(secretName);
+
+            // Get the replication policy.
+            String replication = "";
+            if (secret.getReplication().getAutomatic() != null) {
+                replication = "AUTOMATIC";
+            } else if (secret.getReplication().getUserManaged() != null) {
+                replication = "MANAGED";
+            } else {
+                throw new IllegalStateException("Unknown replication type");
+            }
+
+            System.out.printf("Secret %s, replication %s\n", secret.getName(), replication);
+            return secret.getName();
+        }
+    }
+
 }
