@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23;
 
+import com.google.api.client.util.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -9,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import ch.uzh.ifi.hase.soprafs23.GetSecret;
+
+//import ch.uzh.ifi.hase.soprafs23.GetSecret;
 
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
+
 
 @RestController
 @SpringBootApplication
@@ -28,6 +31,7 @@ public class Application {
   @ResponseBody
   public String helloWorld(){
       String secret="initialize";
+      secret = System.getenv("MY_SECRET");
 //      try {
 //          secret = System.getenv("TestAPIKey");
 //          System.out.println(secret);
@@ -46,16 +50,16 @@ public class Application {
 //          e.printStackTrace();
 //      }
 //      System.out.println(secret);
-      GetSecret test = new GetSecret();
-      try {
-          test.getSecret();
-          secret="getSecret() success";
-      }
-      catch (Exception e) {
-          secret="getSecret() error";
-          e.printStackTrace();
-      }
-
+//      GetSecret test = new GetSecret();
+//      try {
+//          test.getSecret();
+//          secret="getSecret() success";
+//      }
+//      catch (Exception e) {
+//          secret="getSecret() error";
+//          e.printStackTrace();
+//      }
+      System.out.println("CHECKPOINT" + secret);
       return "The application is running.\nAPI KEY : " + secret;
   }
 
