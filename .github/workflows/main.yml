@@ -22,12 +22,12 @@ jobs:
         env:
           MY_DOTENV: ${{ secrets.MY_DOTENV }}
           GCP_SERVICE_CREDENTIALS: ${{ secrets.GCP_SERVICE_CREDENTIALS }}
-        run: echo "$MY_DOTENV" > .env-for-app-yaml
+        run: echo "MY_DOTENV=$MY_DOTENV" > forappyaml.env
 
       - id: prepare-app-yaml
         uses: mshick/fast-envsubst@v1
         with:
-          env-file: .env-for-app-yaml
+          env-file: forappyaml.env
           in-file: app.yaml.template
           out-file: app.yaml
 
