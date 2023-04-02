@@ -4,5 +4,5 @@
 runtime: java17
 instance_class: F2
 env_variables:
-  MY_SECRET: 'abc1234appyml'
+  MY_DOTENV: 'abc1234appyml'
   VAR2: 'VALUE2'
