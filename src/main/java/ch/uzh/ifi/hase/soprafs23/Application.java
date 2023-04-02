@@ -22,7 +22,7 @@ public class Application {
   @ResponseBody
   public String helloWorld(){
       String secret="initialize";
-      secret = System.getenv("MY_SECRET");
+      secret = System.getenv("MY_DOTENV");
 //      try {
 //          secret = System.getenv("TestAPIKey");
 //          System.out.println(secret);
