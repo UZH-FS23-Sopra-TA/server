@@ -1,3 +1,13 @@
+# File structure Template
+
+.
+├ Test
+├ Test
+├ Test
+├ Test
+
+
+
 # SoPra RESTful Service Template FS23
 [11-02-2023] google cloud app engine setup - retry
 [11-02-2023] google cloud app engine setup - failed
